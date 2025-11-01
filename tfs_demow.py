@@ -1,13 +1,11 @@
 # --------------------------------------------------------------
-# tfs_demo.py – FULLY IMPLEMENTED TOP 3: Billing + WhatsApp + Client Portal
+# tfs_demo.py – FULLY FIXED: No Jinja Errors | Billing + WhatsApp + Portal
 # --------------------------------------------------------------
 import os
-from flask import Flask, render_template_string, request, redirect, url_for, flash, session, jsonify
+from flask import Flask, render_template_string, request, redirect, url_for, flash
 import pandas as pd
 from datetime import datetime
 import io
-import random
-import string
 
 app = Flask(__name__)
 app.secret_key = 'tfs_secret_2025'
@@ -93,7 +91,7 @@ def txt(key):
     return LANG.get(lang, LANG['en']).get(key, key)
 
 # ----------------------------------------------------------------------
-# FULL HTML WITH MODALS + NEW FEATURES
+# FULL HTML (FIXED JINJA SYNTAX)
 # ----------------------------------------------------------------------
 HTML = '''
 <!DOCTYPE html>
@@ -329,6 +327,7 @@ HTML = '''
 </div>
 {% endfor %}
 
+<!-- FIXED: Edit Stock Modal -->
 {% for s in stock %}
 <div class="modal fade" id="editStock{{s.id}}">
   <div class="modal-dialog"><div class="modal-content">
@@ -337,10 +336,10 @@ HTML = '''
       <div class="modal-body">
         <input name="name" class="form-control mb-2" value="{{s.name}}" required>
         <select name="category" class="form-select mb-2">
-          <option {% if s.category==' 'Coffins' %}selected{% endif %}>Coffins</option>
-          <option {% if s.category 'Tents/Chairs' %}selected{% endif %}>Tents/Chairs</option>
-          <option {% if s.category 'Catering' %}selected{% endif %}>Catering</option>
-          <option {% if s.category 'Flowers' %}selected{% endif %}>Flowers</option>
+          <option value="Coffins" {% if s.category=='Coffins' %}selected{% endif %}>Coffins</option>
+          <option value="Tents/Chairs" {% if s.category=='Tents/Chairs' %}selected{% endif %}>Tents/Chairs</option>
+          <option value="Catering" {% if s.category=='Catering' %}selected{% endif %}>Catering</option>
+          <option value="Flowers" {% if s.category=='Flowers' %}selected{% endif %}>Flowers</option>
         </select>
         <input name="qty" type="number" class="form-control mb-2" value="{{s.quantity}}" required>
         <input name="cost" type="number" step="0.01" class="form-control mb-2" value="{{s.cost}}" required>
